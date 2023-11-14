@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ApigrafosApplication<apigrafos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.apigrafos.apigrafos.ApigrafosApplication",
+            "projectName": "apigrafos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
