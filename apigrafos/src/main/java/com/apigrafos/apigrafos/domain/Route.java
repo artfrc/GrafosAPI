@@ -1,5 +1,7 @@
 package com.apigrafos.apigrafos.domain;
 
+import com.apigrafos.apigrafos.dto.RouteDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,22 @@ public class Route {
     private String source;
 
     private String destiny;
+
+    private Float distance;
+
+    public Route(RouteDTO data) {
+        this.source = data.source();
+        this.destiny = data.destiny();
+        this.distance = data.distance();
+    }
+
+    public Float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Float distance) {
+        this.distance = distance;
+    }
 
     public String getSource() {
         return source;
