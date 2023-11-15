@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,13 @@ public class StationController {
     @Transactional
     public ResponseEntity<Station> addNewStation(@RequestBody @Valid StationDTO data) {
         return ResponseEntity.ok(stationService.addNewStation(data));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Station> deleteStation(@PathVariable Long id) {
+        Station station = stationService.deleteStation(id);
+        return ResponseEntity.ok(station);
     }
 
 }   

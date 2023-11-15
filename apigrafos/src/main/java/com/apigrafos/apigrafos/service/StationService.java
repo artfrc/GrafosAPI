@@ -25,4 +25,10 @@ public class StationService {
         return newStation;
     }
 
+    public Station deleteStation(Long id) {
+        Station station = stationRepository.findById(id).get();
+        stationRepository.delete(station);
+        return station;
+    }
+
 }
