@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apigrafos.apigrafos.domain.Station;
+import com.apigrafos.apigrafos.dto.StationDTO;
 import com.apigrafos.apigrafos.repository.StationRepository;
 
 @Service
@@ -16,6 +17,12 @@ public class StationService {
 
     public List<Station> getAllStation() {
         return stationRepository.findAll();
+    }
+
+    public Station addNewStation(StationDTO data) {
+        Station newStation = new Station(data);
+        stationRepository.save(newStation);
+        return newStation;
     }
 
 }

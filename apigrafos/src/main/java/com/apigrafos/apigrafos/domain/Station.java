@@ -1,5 +1,7 @@
 package com.apigrafos.apigrafos.domain;
 
+import com.apigrafos.apigrafos.dto.StationDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,10 @@ public class Station {
     private Long id;
 
     private String name;
+
+    public Station(StationDTO data) {
+        this.name = data.name();
+    }
 
     public Long getId() {
         return id;
