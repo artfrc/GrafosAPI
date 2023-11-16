@@ -75,8 +75,6 @@ public class RouteService {
             Float distance = aux.getKey();
             String station = aux.getValue();
     
-            System.out.println(">> Station: " + station);
-    
             if (mp.get(station) == -1f) {
                 mp.put(station, distance);
     
