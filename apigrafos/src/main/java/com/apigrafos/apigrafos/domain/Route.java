@@ -27,7 +27,7 @@ public class Route {
     private String destiny;
 
     private Float distance;
-
+    
     public Route(RouteDTO data) {
         this.source = data.source();
         this.destiny = data.destiny();

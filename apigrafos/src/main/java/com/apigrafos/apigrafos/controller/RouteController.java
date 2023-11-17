@@ -42,4 +42,9 @@ public class RouteController {
         return ResponseEntity.ok(routeService.djikstra(source, destiny));
     }
 
+    @GetMapping("/astar/{source}/{destiny}")
+    public ResponseEntity<AbstractMap.SimpleEntry<List<String>, Float>> aStar(@PathVariable String source, @PathVariable String destiny) {
+        return ResponseEntity.ok(routeService.aStar(source, destiny));
+    }
+
 }

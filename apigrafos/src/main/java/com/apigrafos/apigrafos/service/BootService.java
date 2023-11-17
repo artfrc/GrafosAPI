@@ -12,6 +12,7 @@ import com.apigrafos.apigrafos.dto.StationDTO;
 import com.apigrafos.apigrafos.repository.RouteRepository;
 import com.apigrafos.apigrafos.repository.StationRepository;
 
+
 @Service
 public class BootService {
     
@@ -26,16 +27,16 @@ public class BootService {
         routeRepository.deleteAll();
         stationRepository.deleteAll();
 
-        stationRepository.save(new Station(new StationDTO("E1 - Cesario Alvim")));
-        stationRepository.save(new Station(new StationDTO("E2 - Pereiras")));
-        stationRepository.save(new Station(new StationDTO("E3 - Sesc")));
-        stationRepository.save(new Station(new StationDTO("E4 - Shopping")));
-        stationRepository.save(new Station(new StationDTO("E5 - Prefeitura")));
-        stationRepository.save(new Station(new StationDTO("E6 - UFU")));
+        stationRepository.save(new Station(new StationDTO("E1 - Cesario Alvim",1190f)));
+        stationRepository.save(new Station(new StationDTO("E2 - Pereiras",879.09f)));
+        stationRepository.save(new Station(new StationDTO("E3 - Sesc", 814.81f)));
+        stationRepository.save(new Station(new StationDTO("E4 - Shopping", 677.24f)));
+        stationRepository.save(new Station(new StationDTO("E5 - Prefeitura", 433.44f)));
+        stationRepository.save(new Station(new StationDTO("E6 - UFU", 0f)));
 
-        stationRepository.save(new Station(new StationDTO("E? - Avenida Alexandre Ribeiro Guimarães")));
-        stationRepository.save(new Station(new StationDTO("E? - Rua Joaquim Cordeiro")));
-        stationRepository.save(new Station(new StationDTO("E? - Avenida Nicodemos Alves dos Santos")));
+        stationRepository.save(new Station(new StationDTO("E? - Avenida Alexandre Ribeiro Guimarães", 275.17f)));
+        stationRepository.save(new Station(new StationDTO("E? - Rua Joaquim Cordeiro", 800.23f)));
+        stationRepository.save(new Station(new StationDTO("E? - Avenida Nicodemos Alves dos Santos", 468.02f)));
 
         routeRepository.save(new Route(new RouteDTO("E1 - Cesario Alvim", "E2 - Pereiras",  442.21f)));
         routeRepository.save(new Route(new RouteDTO("E2 - Pereiras", "E3 - Sesc",  367.85f)));

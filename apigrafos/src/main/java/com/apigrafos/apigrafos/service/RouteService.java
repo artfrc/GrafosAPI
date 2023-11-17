@@ -53,8 +53,66 @@ public class RouteService {
         return route;
     }
 
-    public AbstractMap.SimpleEntry<List<String>, Float> djikstra(String source, String destiny) {
+    public AbstractMap.SimpleEntry<List<String>, Float> aStar(String source, String destiny) {
+        List<Station> allStations = stationRepository.findAll();
+        HashMap<Station, Float> mp = new HashMap<>();
+        HashMap<Station, Float> mpWithoutHeuristic = new HashMap<>();
+        HashMap<String, String> path = new HashMap<>();
+
+        PriorityQueue<AbstractMap.SimpleEntry<Float, Station>> pq = new PriorityQueue<>((b, a) -> Float.compare(b.getKey(), a.getKey()));
         
+        Station stationDestiny = new Station();
+
+        for (Station station : allStations) {
+            mp.put(station,-1f);
+            if(station.getName().equals(source)) {
+                pq.add(new AbstractMap.SimpleEntry<>(0f + station.getHeuristic(), station));
+            } else if(station.getName().equals(destiny)) {
+                stationDestiny = station;
+            }
+        }
+
+        while(!pq.isEmpty()) {
+            AbstractMap.SimpleEntry<Float, Station> aux = pq.poll();
+
+            Station station = aux.getValue();
+            Float distance = aux.getKey();
+            Float distanceWithoutHeuristic = distance-station.getHeuristic();
+
+            if(mp.get(station) != -1f) continue;
+
+            mp.put(station, distance);
+            mpWithoutHeuristic.put(station,distanceWithoutHeuristic);
+
+            if (station.getName().equals(destiny)) {
+                List<String> list = shortestPath(path, destiny, source);
+                return new AbstractMap.SimpleEntry<>(list, mpWithoutHeuristic.get(stationDestiny));
+            }
+    
+            // pegar os vizinhos de station
+            List<Route> routesWithSourceStation = routeRepository.findBySource(station.getName());
+
+            for (Route route : routesWithSourceStation) {
+                String neighbor = route.getDestiny();
+                Station st = stationRepository.findByName(neighbor).get(0);
+                Float heuristic = st.getHeuristic();
+                Float totalDistance = route.getDistance() + distanceWithoutHeuristic + heuristic;
+
+                if (mp.get(st) < 0) {
+                    pq.add(new AbstractMap.SimpleEntry<>(totalDistance, st));
+                }
+
+                if ((path.get(neighbor) == null) || (mp.get(neighbor) > totalDistance)) {
+                    path.put(neighbor, station.getName());
+                }
+            }
+        }
+
+        // Adicione um retorno adequado caso a condição de destino nunca seja alcançada
+        return new AbstractMap.SimpleEntry<>(new ArrayList<>(), -1f);
+    }
+
+    public AbstractMap.SimpleEntry<List<String>, Float> djikstra(String source, String destiny) {
         List<Station> allStations = stationRepository.findAll();
         HashMap<String, Float> mp = new HashMap<>();
         HashMap<String, String> path = new HashMap<>();
@@ -103,7 +161,6 @@ public class RouteService {
     
         // Adicione um retorno adequado caso a condição de destino nunca seja alcançada
         return new AbstractMap.SimpleEntry<>(new ArrayList<>(), -1f);
-
     }
 
     public List<String> shortestPath(HashMap<String, String> pathHash, String start, String end) {

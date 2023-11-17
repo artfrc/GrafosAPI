@@ -24,8 +24,20 @@ public class Station {
 
     private String name;
 
+    private Float heuristic;
+
+
+    public Float getHeuristic() {
+        return heuristic;
+    }
+
+    public void setHeuristic(Float heuristic) {
+        this.heuristic = heuristic;
+    }
+
     public Station(StationDTO data) {
         this.name = data.name();
+        this.heuristic = data.heuristic();
     }
 
     public Long getId() {
